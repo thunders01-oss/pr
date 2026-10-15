@@ -1,0 +1,76 @@
+Q1. Iterative Deepening Search (IDS) (10 Marks)
+
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [], 'E': [], 'F': []
+}
+
+def dls(node, goal, depth):
+    print(node, end=" ")
+
+    if node == goal:
+        return True
+
+    if depth == 0:
+        return False
+
+    for n in graph[node]:
+        if dls(n, goal, depth-1):
+            return True
+
+    return False
+
+def ids(start, goal, limit):
+    for depth in range(limit+1):
+        print("\nDepth", depth, ":")
+        if dls(start, goal, depth):
+            print("\nGoal Found")
+            return
+
+ids('A', 'F', 3)
+
+
+
+
+
+
+Q2
+OR: Map Coloring using CSP (20 Marks)
+
+
+
+colors = ['Red', 'Green', 'Blue']
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B', 'D'],
+    'D': ['B', 'C']
+}
+
+result = {}
+
+def solve():
+    if len(result) == len(graph):
+        return True
+
+    node = next(n for n in graph if n not in result)
+
+    for color in colors:
+        if all(result.get(n) != color for n in graph[node]):
+            result[node] = color
+
+            if solve():
+                return True
+
+            del result[node]
+
+    return False
+
+if solve():
+    print("Solution:", result)
+else:
+    print("No solution")

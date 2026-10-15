@@ -1,0 +1,33 @@
+Q1. Tower of Hanoi using State-Space Representation (10 Marks)
+
+
+def hanoi(n, source, auxiliary, destination):
+    if n == 1:
+        print(source, "->", destination)
+        return
+
+    hanoi(n-1, source, destination, auxiliary)
+    print(source, "->", destination)
+    hanoi(n-1, auxiliary, source, destination)
+
+n = int(input("Enter number of disks: "))
+hanoi(n, 'A', 'B', 'C')
+
+
+
+
+
+Q2
+OR: Rule-Based Expert System (20 Marks)
+
+
+marks = int(input("Enter marks: "))
+
+if marks >= 75:
+    print("Distinction")
+elif marks >= 60:
+    print("First Class")
+elif marks >= 40:
+    print("Pass")
+else:
+    print("Fail")

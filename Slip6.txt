@@ -1,0 +1,43 @@
+Q1. DFS Traversal for a Graph (10 Marks)
+
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': [],
+    'F': []
+}
+
+def dfs(node, visited):
+    if node not in visited:
+        print(node, end=" ")
+        visited.add(node)
+
+        for n in graph[node]:
+            dfs(n, visited)
+
+dfs('A', set())
+
+
+
+
+
+Q2. Non-Linear SVM using RBF Kernel (20 Marks)
+
+
+from sklearn.svm import SVC
+
+X = [[1, 2], [2, 3], [5, 5]]
+y = [0, 0, 1]
+
+model = SVC(kernel='rbf', C=1.0, gamma='scale')
+
+model.fit(X, y)
+
+test = [[4, 4]]
+
+result = model.predict(test)
+
+print("Predicted Class:", result[0])

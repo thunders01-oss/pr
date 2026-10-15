@@ -1,0 +1,79 @@
+Q1. BFS for Monkey Banana Problem (10 Marks)
+
+
+from collections import deque
+
+def bfs():
+    start = ("Floor", "No", "No")
+    q = deque([(start, [])])
+    visited = set()
+
+    while q:
+        state, path = q.popleft()
+
+        if state == ("Box", "Yes", "Yes"):
+            print("Solution:")
+            for step in path + [state]:
+                print(step)
+            return
+
+        if state in visited:
+            continue
+        visited.add(state)
+
+        location, box, banana = state
+
+        moves = [
+            ("Move to Box", ("Box", box, banana)),
+            ("Move to Banana", ("Banana", box, banana)),
+            ("Push Box", ("Box", "Yes", banana)),
+            ("Climb Box", ("Box", "Yes", "Yes"))
+        ]
+
+        for action, new_state in moves:
+            if new_state not in visited:
+                q.append((new_state, path + [state]))
+
+bfs()
+
+
+
+
+
+
+OR: Map Coloring using CSP (20 Marks)
+
+
+colors = ['Red', 'Green', 'Blue']
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B', 'D'],
+    'D': ['B', 'C']
+}
+
+result = {}
+
+def solve(node):
+    if node == len(graph):
+        return True
+
+    region = list(graph.keys())[node]
+
+    for color in colors:
+        if all(result.get(n) != color
+               for n in graph[region]):
+            result[region] = color
+
+            if solve(node + 1):
+                return True
+
+            del result[region]
+
+    return False
+
+if solve(0):
+    print(result)
+else:
+    print("No solution")

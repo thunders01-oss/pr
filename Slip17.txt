@@ -1,0 +1,51 @@
+Q1. Best First Search (10 Marks)
+
+
+import heapq
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [], 'E': [], 'F': []
+}
+
+h = {'A': 5, 'B': 3, 'C': 4,
+     'D': 1, 'E': 2, 'F': 0}
+
+def best_first(start, goal):
+    q = [(h[start], start)]
+    visited = set()
+
+    while q:
+        _, node = heapq.heappop(q)
+
+        if node in visited:
+            continue
+
+        print(node, end=" ")
+        visited.add(node)
+
+        if node == goal:
+            return
+
+        for n in graph[node]:
+            if n not in visited:
+                heapq.heappush(q, (h[n], n))
+
+best_first('A', 'F')
+
+
+
+
+
+Q2. Propositional Logic using AND, OR and IMPLIES (20 Marks)
+
+
+
+P = True
+Q = False
+
+print("P AND Q =", P and Q)
+print("P OR Q =", P or Q)
+print("P IMPLIES Q =", (not P) or Q)

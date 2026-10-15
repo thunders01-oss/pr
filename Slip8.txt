@@ -1,0 +1,62 @@
+Q1. 4-Puzzle using A* Search (10 Marks)
+
+
+from heapq import heappush, heappop
+
+start = (1, 2, 0, 3)
+goal = (1, 2, 3, 0)
+
+def heuristic(s):
+    return sum(s[i] != goal[i] for i in range(4))
+
+def astar():
+    pq = [(heuristic(start), 0, start, [])]
+    visited = set()
+
+    while pq:
+        f, g, state, path = heappop(pq)
+
+        if state == goal:
+            print("Path:", path + [state])
+            return
+
+        if state in visited:
+            continue
+        visited.add(state)
+
+        z = state.index(0)
+
+        for move in [-2, 2, -1, 1]:
+            n = z + move
+
+            if 0 <= n < 4 and not (
+                abs(move) == 1 and z // 2 != n // 2
+            ):
+                new = list(state)
+                new[z], new[n] = new[n], new[z]
+                new = tuple(new)
+
+                if new not in visited:
+                    heappush(
+                        pq, (g + 1 + heuristic(new),
+                             g + 1, new, path + [state])
+                    )
+
+astar()
+
+
+
+
+
+Q2
+Rule-Based Expert System (20 Marks)
+
+
+temperature = int(input("Enter temperature: "))
+
+if temperature > 30:
+    print("Decision: It is Hot")
+elif temperature >= 20:
+    print("Decision: Weather is Pleasant")
+else:
+    print("Decision: It is Cold")

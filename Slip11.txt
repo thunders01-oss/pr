@@ -1,0 +1,66 @@
+Q1. Compare Minimax and Alpha-Beta Pruning (10 Marks)
+
+
+
+values = [3, 5, 6, 9, 1, 2, 0, -1]
+
+def minimax(d, i, maximum):
+    if d == 3:
+        return values[i]
+
+    a = minimax(d+1, i*2, not maximum)
+    b = minimax(d+1, i*2+1, not maximum)
+
+    return max(a, b) if maximum else min(a, b)
+
+def alphabeta(d, i, maximum, alpha, beta):
+    if d == 3:
+        return values[i]
+
+    if maximum:
+        best = float('-inf')
+        for j in range(2):
+            best = max(best, alphabeta(
+                d+1, i*2+j, False, alpha, beta))
+            alpha = max(alpha, best)
+            if alpha >= beta:
+                break
+        return best
+
+    best = float('inf')
+    for j in range(2):
+        best = min(best, alphabeta(
+            d+1, i*2+j, True, alpha, beta))
+        beta = min(beta, best)
+        if alpha >= beta:
+            break
+    return best
+
+print("Minimax:", minimax(0, 0, True))
+print("Alpha-Beta:", alphabeta(
+    0, 0, True, float('-inf'), float('inf')))
+
+
+
+
+
+
+
+Q2. Backward Chaining (20 Marks)
+
+facts = {'human', 'mortal_rule'}
+
+rules = {
+    'mortal': ['human', 'mortal_rule']
+}
+
+def backward(goal):
+    if goal in facts:
+        return True
+
+    if goal in rules:
+        return all(backward(x) for x in rules[goal])
+
+    return False
+
+print("Is mortal?", backward('mortal'))

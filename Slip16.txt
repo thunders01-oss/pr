@@ -1,0 +1,49 @@
+Q1. Depth Limited Search (10 Marks)
+
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [], 'E': [], 'F': []
+}
+
+def dls(node, goal, limit):
+    print(node, end=" ")
+
+    if node == goal:
+        return True
+
+    if limit == 0:
+        return False
+
+    for n in graph[node]:
+        if dls(n, goal, limit - 1):
+            return True
+
+    return False
+
+dls('A', 'E', 2)
+
+
+
+
+
+Q2. Backward Chaining (20 Marks)
+
+
+facts = {'human'}
+rules = {
+    'mortal': ['human']
+}
+
+def backward(goal):
+    if goal in facts:
+        return True
+
+    if goal in rules:
+        return all(backward(x) for x in rules[goal])
+
+    return False
+
+print("Is human mortal?", backward('mortal'))

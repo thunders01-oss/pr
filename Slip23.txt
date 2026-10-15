@@ -1,0 +1,59 @@
+Q1. Hill Climbing for 
+
+
+def f(x):
+    return -x**2 + 4*x
+
+x = 0
+step = 0.1
+
+while True:
+    if f(x+step) > f(x):
+        x += step
+    elif f(x-step) > f(x):
+        x -= step
+    else:
+        break
+
+print("Maximum x:", round(x, 2))
+print("Maximum value:", round(f(x), 2))
+
+
+
+
+
+
+Q2. Map Coloring using CSP (20 Marks)
+
+
+
+colors = ['Red', 'Green', 'Blue']
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B', 'D'],
+    'D': ['B', 'C']
+}
+
+result = {}
+
+def solve():
+    if len(result) == len(graph):
+        return True
+
+    node = next(n for n in graph if n not in result)
+
+    for color in colors:
+        if all(result.get(n) != color for n in graph[node]):
+            result[node] = color
+
+            if solve():
+                return True
+
+            del result[node]
+
+    return False
+
+if solve():
+    print("Map Coloring:", result)

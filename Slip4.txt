@@ -1,0 +1,48 @@
+Q1. State-Space Search using BFS (10 Marks)
+
+
+from collections import deque
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
+
+def bfs(start):
+    q = deque([start])
+    visited = set()
+
+    while q:
+        node = q.popleft()
+
+        if node not in visited:
+            print(node, end=" ")
+            visited.add(node)
+            q.extend(graph[node])
+
+bfs('A')
+
+
+
+
+Q2
+Predicate Logic (20 Marks)
+
+
+students = ['Amit', 'Ravi', 'Sita']
+
+def is_student(x):
+    return x in students
+
+for x in students:
+    print(x, is_student(x))
+
+print("Exists student:", any(is_student(x)
+                             for x in students))
+
+print("All are students:",
+      all(is_student(x) for x in students))

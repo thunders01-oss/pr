@@ -1,0 +1,83 @@
+Q1. A* Search from V1 to V6 (10 Marks)
+
+
+import heapq
+
+graph = {
+    'V1': [('V2', 2), ('V3', 4)],
+    'V2': [('V4', 3)],
+    'V3': [('V5', 2)],
+    'V4': [('V6', 2)],
+    'V5': [('V6', 3)],
+    'V6': []
+}
+
+h = {
+    'V1': 5, 'V2': 4, 'V3': 3,
+    'V4': 2, 'V5': 2, 'V6': 0
+}
+
+def astar(start, goal):
+    q = [(h[start], 0, start, [start])]
+    visited = set()
+
+    while q:
+        f, cost, node, path = heapq.heappop(q)
+
+        if node == goal:
+            print("Path:", path)
+            print("Cost:", cost)
+            return
+
+        if node in visited:
+            continue
+        visited.add(node)
+
+        for nxt, weight in graph[node]:
+            if nxt not in visited:
+                new_cost = cost + weight
+                heapq.heappush(
+                    q, (new_cost + h[nxt],
+                        new_cost, nxt, path + [nxt])
+                )
+
+astar('V1', 'V6')
+
+
+
+
+
+
+Q2. Map Coloring using CSP (20 Marks)
+
+
+colors = ['Red', 'Green', 'Blue']
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B', 'D'],
+    'D': ['B', 'C']
+}
+
+result = {}
+
+def solve():
+    if len(result) == len(graph):
+        return True
+
+    node = next(n for n in graph if n not in result)
+
+    for color in colors:
+        if all(result.get(n) != color for n in graph[node]):
+            result[node] = color
+
+            if solve():
+                return True
+
+            del result[node]
+
+    return False
+
+if solve():
+    print("Coloring:", result)

@@ -1,0 +1,46 @@
+Q1. BFS Traversal for a Graph (10 Marks)
+
+
+from collections import deque
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B'],
+    'F': ['C']
+}
+
+def bfs(start):
+    visited = set([start])
+    q = deque([start])
+
+    while q:
+        node = q.popleft()
+        print(node, end=" ")
+
+        for n in graph[node]:
+            if n not in visited:
+                visited.add(n)
+                q.append(n)
+
+bfs('A')
+
+
+
+
+OR: Propositional Logic using AND, OR and NOT (20 Marks)
+
+# Propositional Logic
+
+P = True
+Q = False
+
+print("P =", P)
+print("Q =", Q)
+
+print("P AND Q =", P and Q)
+print("P OR Q =", P or Q)
+print("NOT P =", not P)
+print("NOT Q =", not Q)

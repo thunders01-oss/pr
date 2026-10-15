@@ -1,0 +1,43 @@
+Q1. Hill Climbing Algorithm (10 Marks)
+
+
+def f(x):
+    return -x*x + 4*x
+
+x = 0
+step = 0.1
+
+while True:
+    if f(x+step) > f(x):
+        x += step
+    elif f(x-step) > f(x):
+        x -= step
+    else:
+        break
+
+print("Maximum x:", round(x, 2))
+print("Maximum value:", round(f(x), 2))
+
+
+
+
+
+
+Q2
+OR: Supervised vs Unsupervised Learning (20 Marks)
+
+
+
+from sklearn.datasets import load_iris
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.cluster import KMeans
+
+X, y = load_iris(return_X_y=True)
+
+model = DecisionTreeClassifier(random_state=42)
+model.fit(X, y)
+print("Supervised:", model.predict(X[:5]))
+
+km = KMeans(n_clusters=3, random_state=42, n_init=10)
+km.fit(X)
+print("Clusters:", km.labels_[:5])

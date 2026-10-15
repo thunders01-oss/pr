@@ -1,0 +1,58 @@
+Q1. BFS Traversal for a Graph (10 Marks)
+
+
+from collections import deque
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': [],
+    'F': []
+}
+
+def bfs(start):
+    q = deque([start])
+    visited = {start}
+
+    while q:
+        node = q.popleft()
+        print(node, end=" ")
+
+        for n in graph[node]:
+            if n not in visited:
+                visited.add(n)
+                q.append(n)
+
+bfs('A')
+
+
+
+
+
+
+Q2
+OR: Ontological Engineering (20 Marks)
+
+
+
+ontology = {
+    'Animal': ['Dog', 'Cat'],
+    'Vehicle': ['Car', 'Bike'],
+    'Student': ['CollegeStudent', 'SchoolStudent']
+}
+
+relations = [
+    ('Dog', 'is_a', 'Animal'),
+    ('Car', 'is_a', 'Vehicle'),
+    ('CollegeStudent', 'is_a', 'Student')
+]
+
+print("Classes and subclasses:")
+for cls, subs in ontology.items():
+    print(cls, ":", subs)
+
+print("Relationships:")
+for r in relations:
+    print(r)

@@ -1,0 +1,55 @@
+Q1. Means-End Analysis (10 Marks)
+
+
+current = {'at_home', 'hungry'}
+goal = 'eat_food'
+
+rules = {
+    'eat_food': ('has_food', 'cook_food'),
+    'cook_food': ('has_ingredients', 'prepare_ingredients'),
+    'prepare_ingredients': ('at_home', 'buy_ingredients')
+}
+
+def solve(goal):
+    if goal in current:
+        return
+
+    if goal in rules:
+        precondition, action = rules[goal]
+        solve(precondition)
+        print("Perform:", action)
+        current.add(goal)
+
+solve(goal)
+
+
+
+
+
+Q2
+OR: Linear SVM with StandardScaler (20 Marks)
+
+
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import LinearSVC
+
+X = [
+    [5.1,3.5,1.4,0.2], [4.9,3.0,1.4,0.2],
+    [4.7,3.2,1.3,0.2], [4.6,3.1,1.5,0.2],
+    [5.0,3.6,1.4,0.2], [7.0,3.2,4.7,1.4],
+    [6.4,3.2,4.5,1.5], [6.9,3.1,4.9,1.5],
+    [5.5,2.3,4.0,1.3], [6.5,2.8,4.6,1.5]
+]
+
+y = [0,0,0,0,0,1,1,1,1,1]
+
+model = Pipeline([
+    ('scaler', StandardScaler()),
+    ('svm', LinearSVC(C=1, loss='hinge', dual=True,
+                      max_iter=10000, random_state=42))
+])
+
+model.fit(X, y)
+print("Predictions:", model.predict(X))
+print("Accuracy:", model.score(X, y))

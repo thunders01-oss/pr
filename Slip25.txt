@@ -1,0 +1,63 @@
+Q1. AO* Algorithm (10 Marks)
+
+
+graph = {
+    'A': [[('B', 1)], [('C', 1), ('D', 1)]],
+    'B': [],
+    'C': [],
+    'D': []
+}
+
+cost = {
+    'B': 3,
+    'C': 2,
+    'D': 4
+}
+
+def ao_star(node):
+    if not graph[node]:
+        return cost[node]
+
+    options = []
+
+    for group in graph[node]:
+        total = 0
+
+        for child, edge_cost in group:
+            total += edge_cost + ao_star(child)
+
+        options.append(total)
+
+    cost[node] = min(options)
+    return cost[node]
+
+print("Minimum cost:", ao_star('A'))
+print("Costs:", cost)
+
+
+
+
+
+
+Q2. Minimax Algorithm for a Two-Player Game (20 Marks)
+
+
+
+values = [3, 5, 6, 9, 1, 2, 0, -1]
+
+def minimax(depth, index, maximizing):
+    if depth == 3:
+        return values[index]
+
+    if maximizing:
+        return max(
+            minimax(depth+1, index*2, False),
+            minimax(depth+1, index*2+1, False)
+        )
+
+    return min(
+        minimax(depth+1, index*2, True),
+        minimax(depth+1, index*2+1, True)
+    )
+
+print("Best Value:", minimax(0, 0, True))
